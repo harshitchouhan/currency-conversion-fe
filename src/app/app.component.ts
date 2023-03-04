@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import CryptoJS from 'crypto-js';
+import moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { HttpService } from './services/http.service';
 
@@ -15,10 +16,11 @@ export class AppComponent {
   rates: any[] = [];
 
   form!: FormGroup;
+  timestamp = moment(new Date()).format('YYYY-MM-DD');
 
   constructor(private http: HttpService) {
     this.form = new FormGroup({
-      amount: new FormControl(1, [Validators.required, Validators.max(999999999)]),
+      amount: new FormControl(1, [Validators.required, Validators.max(9999999999999999999999999)]),
       from: new FormControl(null, [Validators.required, Validators.maxLength(3)]),
       to: new FormControl(null, [Validators.required, Validators.maxLength(3)]),
       convertedValue: new FormControl(81),
@@ -26,8 +28,6 @@ export class AppComponent {
 
     this._fetchCurrencyRates();
   }
-
-  ngOnInit() {}
 
   private _fetchCurrencyRates() {
     this.http.postUrl = 'currency/rates';
@@ -48,6 +48,7 @@ export class AppComponent {
       },
       error: (e) => {
         console.log(e);
+        alert('Something went wrong. Please try again after sometime');
       },
     });
   }

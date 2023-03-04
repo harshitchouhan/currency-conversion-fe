@@ -16,12 +16,19 @@
               <div class="col-12 mb-3">
                 <label for="amount" class="form-label currency-convertor-box--label">Amount</label>
                 <input (change)="form.get('convertedValue')?.setValue(0)" formControlName="amount" type="number" class="form-control currency-convertor-box--input" id="amount" />
+                <app-error-messages
+                  [control]="form.get('amount')"
+                  [message]="{
+                    required: 'Amount is required',
+                    max: 'Maximum 25 digits allowed'
+                  }"
+                ></app-error-messages>
               </div>
               <div class="col-md-4 mb-3" *ngIf="rates.length > 0">
                 <label for="From" class="form-label currency-convertor-box--label">From</label>
                 <ng-select (change)="form.get('convertedValue')?.setValue(0)" [items]="rates" [clearable]="false" formControlName="from"> </ng-select>
               </div>
-              <div class="d-none d-md-flex col-4 mb-3 d-flex align-items-center justify-content-center">
+              <div class="d-none d-md-flex col-4 mb-3 d-flex align-items-center justify-content-center" *ngIf="rates.length > 0">
                 <img src="assets/right-arrow.png" class="currency-convertor-box--icon" alt="Arror Icon" />
               </div>
               <div class="col-md-4 mb-3" *ngIf="rates.length > 0">
@@ -30,6 +37,9 @@
               </div>
               <div class="col-12">
                 <button type="submit" [disabled]="!form.valid" class="btn btn-primary w-100">Convert</button>
+              </div>
+              <div class="col-12">
+                <small><strong>Note:</strong> Rates are of {{ timestamp }}</small>
               </div>
             </div>
           </form>
