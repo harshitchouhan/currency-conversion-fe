@@ -20,7 +20,7 @@ export class AppComponent {
 
   constructor(private http: HttpService) {
     this.form = new FormGroup({
-      amount: new FormControl(1, [Validators.required, Validators.max(9999999999999999999999999)]),
+      amount: new FormControl(1, [Validators.required, Validators.max(9999999999999999999999999), Validators.min(1)]),
       from: new FormControl(null, [Validators.required, Validators.maxLength(3)]),
       to: new FormControl(null, [Validators.required, Validators.maxLength(3)]),
       convertedValue: new FormControl(81),
@@ -71,5 +71,15 @@ export class AppComponent {
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  onlyNumbers(control: any, event: any) {
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      control.setErrors({ isChar: true });
+      return false;
+    }
+    control.setErrors({ isChar: false });
+    return true;
   }
 }

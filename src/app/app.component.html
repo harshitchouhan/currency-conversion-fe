@@ -15,12 +15,22 @@
             <div class="row">
               <div class="col-12 mb-3">
                 <label for="amount" class="form-label currency-convertor-box--label">Amount</label>
-                <input (change)="form.get('convertedValue')?.setValue(0)" formControlName="amount" type="number" class="form-control currency-convertor-box--input" id="amount" />
+                <input
+                  (keypress)="onlyNumbers(form.get('amount'), $event)"
+                  (change)="form.get('convertedValue')?.setValue(0)"
+                  formControlName="amount"
+                  min="1"
+                  type="number"
+                  class="form-control currency-convertor-box--input"
+                  id="amount"
+                />
                 <app-error-messages
                   [control]="form.get('amount')"
                   [message]="{
                     required: 'Amount is required',
-                    max: 'Maximum 25 digits allowed'
+                    max: 'Maximum 25 digits allowed',
+                    min: 'Enter values greater than 0',
+                    isChar: 'Enter a valid number'
                   }"
                 ></app-error-messages>
               </div>
