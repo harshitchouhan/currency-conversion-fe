@@ -30,8 +30,8 @@ export class AppComponent {
   }
 
   private _fetchCurrencyRates() {
-    // this.http.postUrl = 'currency/rates';
-    this.http.postUrl = environment.fetchCurrencyRatesURL;
+    this.http.postUrl = 'currency/rates';
+    // this.http.postUrl = environment.fetchCurrencyRatesURL;
     this.http.getData().subscribe({
       next: (data) => {
         const encData = data.data;
