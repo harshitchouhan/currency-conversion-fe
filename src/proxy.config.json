@@ -1,0 +1,8 @@
+{
+  "/curreny-conversion": {
+    "target": "http://65.2.78.173:4200/", 
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
